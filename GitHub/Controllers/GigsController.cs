@@ -1,17 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using GitHub.Models;
+using GitHub.ViewModels;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace GitHub.Controllers
 {
     public class GigsController : Controller
     {
-        // GET: Gigs
-        public ActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        public GigsController()
         {
-            return View();
+            _context = new ApplicationDbContext();
+        }
+
+        public ActionResult Create()
+        {
+            var viewModel = new GigFormViewModel
+            {
+                Genres = _context.Genres.ToList()
+            };
+
+
+            return View(viewModel);
         }
     }
 }
