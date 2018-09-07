@@ -1,4 +1,5 @@
-﻿using GitHub.Models;
+﻿using System;
+using GitHub.Models;
 using System.Collections.Generic;
 
 namespace GitHub.ViewModels
@@ -11,5 +12,11 @@ namespace GitHub.ViewModels
         public byte Genre { get; set; }
         // we need the list of genre from the database inorder to use as the second argument in dropdownlist
         public IEnumerable<Genre> Genres { get; set; }
+
+        public DateTime DateTime
+        {
+            get { return DateTime.Parse(string.Format("{0} {1}", Date, Time)); }
+
+        }
     }
 }
