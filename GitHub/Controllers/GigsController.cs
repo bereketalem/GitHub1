@@ -1,7 +1,6 @@
 ﻿using GitHub.Models;
 using GitHub.ViewModels;
 using Microsoft.AspNet.Identity;
-using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -31,12 +30,20 @@ namespace GitHub.Controllers
         [HttpPost]
         public ActionResult Create(GigFormViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                // we insalized Genres
+                viewModel.Genres = _context.Genres.ToList();
+                return View("Create", viewModel);
+            }
+               
+            
             //here we took the log in user id and save its value to artist
 
             var gig = new Gig
             {
                 ArtistId = User.Identity.GetUserId(),
-                DateTime = viewModel.DateTime,
+                DateTime = viewModel.GetDateTime(),
                 GenreId = viewModel.Genre,
                 Venue = viewModel.Venue
 
